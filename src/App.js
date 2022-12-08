@@ -16,10 +16,13 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Routes, Route, Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import { ColorGame } from './ColorGame';
 import Button from '@mui/material/Button';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { About } from './About';
+import { Home } from './Home';
+import { NotFound } from './NotFound';
+import { MovieDetails } from './MovieDetails';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -130,9 +133,9 @@ function App() {
           path="/movies"
           element={
             <MovieList
-              movies={moviesList.filter((mv) =>
-                mv.name.toLowerCase().includes(search.toLowerCase())
-              )}
+              // movies={moviesList.filter((mv) =>
+              //   mv.name.toLowerCase().includes(search.toLowerCase())
+              // )}
             />
           }
         />
@@ -148,76 +151,6 @@ function App() {
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<Navigate replace to="/404" />} />
       </Routes>
-    </div>
-  );
-}
-
-function MovieDetails({ moviesList }) {
-  const { id } = useParams();
-  const movie = moviesList[id];
-  console.log(movie);
-  const styles = {
-    color: movie.rating >= 8 ? "green" : "red"
-  };
-  const navigate = useNavigate();
-  return (
-    <div>
-      <iframe
-        width="100%"
-        height="550px"
-        src={movie.trailer}
-        title="Vendhu Thanindhathu Kaadu Official Trailer |Silambarasan TR|Gautham Vasudev Menon| @A. R. Rahman"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-      ></iframe>
-      <div className="movie-details-container">
-        <div className="movie-specs">
-          <h2 className="movie-name">
-            {movie.name}
-          </h2>
-          <p style={styles} className="movie-rating">⭐{movie.rating}</p>
-        </div>
-        <p className="movie-summary">{movie.summary}</p>
-        <Button
-          variant="contained"
-          onClick={() => navigate(-1)}
-          startIcon={<KeyboardBackspaceIcon />}
-        >
-          Back
-        </Button>
-      </div>
-    </div>
-  );
-}
-
-function NotFound() {
-  const styles = {
-    width: "100%",
-    maxHeight: "400px",
-    objectFit: "cover"
-  }
-  return (
-    <div>
-      <img style={styles}
-        src="https://cdn.dribbble.com/users/644529/screenshots/2662296/404.gif"
-        alt=" 404 ERROR-Page not found"
-      />
-    </div>
-  );
-}
-
-function Home() {
-  return (
-    <div>
-      <h1>Welcome to Home Page 😍💖🙌</h1>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h1>Welcome to About Page 😎😃</h1>
     </div>
   );
 }
